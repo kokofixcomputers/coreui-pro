@@ -725,7 +725,6 @@ class MultiSelect extends BaseComponent {
     if (!this._config.multiple) {
       this.hide()
       this.search('')
-      this._searchElement.value = null
     }
   }
 
