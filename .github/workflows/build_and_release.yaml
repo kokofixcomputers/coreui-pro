@@ -24,8 +24,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Clean up dist directory
+        run: rm -rf dist
+
       - name: Build distribution
         run: npm run dist
+
+      - name: Zip the dist directory
+        run: zip -r dist.zip dist
 
       - name: Create release
         id: create_release
@@ -33,6 +39,9 @@ jobs:
         with:
           tag_name: v${{ github.event.inputs.version }}
           release_name: v${{ github.event.inputs.version }}
-          files: dist/**
+          files: |
+            dist.zip
+            dist/css/coreui.min.css
+            dist/js/coreui.min.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
